@@ -4219,7 +4219,21 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	virtual_keyboard_spacer->set_h_size_flags(SIZE_EXPAND_FILL);
 	main_container->add_child(virtual_keyboard_spacer);
 #endif
+	
+	VBoxContainer *code_editor_container = memnew(VBoxContainer);
+	script_split->add_child(code_editor_container);
 
+	tab_container = memnew(TabContainer);
+	tab_container->set_tabs_visible(false);
+	tab_container->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
+	code_editor_container->add_child(tab_container);
+	tab_container->set_h_size_flags(SIZE_EXPAND_FILL);
+	tab_container->set_v_size_flags(SIZE_EXPAND_FILL);
+
+	find_replace_bar = memnew(FindReplaceBar);
+	code_editor_container->add_child(find_replace_bar);
+	find_replace_bar->hide();
+	
 	list_split = memnew(VSplitContainer);
 	script_split->add_child(list_split);
 	list_split->set_v_size_flags(SIZE_EXPAND_FILL);
@@ -4293,20 +4307,6 @@ ScriptEditor::ScriptEditor(WindowWrapper *p_wrapper) {
 	help_overview->set_allow_reselect(true);
 	help_overview->set_custom_minimum_size(Size2(0, 60) * EDSCALE); //need to give a bit of limit to avoid it from disappearing
 	help_overview->set_v_size_flags(SIZE_EXPAND_FILL);
-
-	VBoxContainer *code_editor_container = memnew(VBoxContainer);
-	script_split->add_child(code_editor_container);
-
-	tab_container = memnew(TabContainer);
-	tab_container->set_tabs_visible(false);
-	tab_container->set_custom_minimum_size(Size2(200, 0) * EDSCALE);
-	code_editor_container->add_child(tab_container);
-	tab_container->set_h_size_flags(SIZE_EXPAND_FILL);
-	tab_container->set_v_size_flags(SIZE_EXPAND_FILL);
-
-	find_replace_bar = memnew(FindReplaceBar);
-	code_editor_container->add_child(find_replace_bar);
-	find_replace_bar->hide();
 
 	ED_SHORTCUT("script_editor/window_sort", TTRC("Sort"));
 	ED_SHORTCUT("script_editor/window_move_up", TTRC("Move Up"), KeyModifierMask::SHIFT | KeyModifierMask::ALT | Key::UP);

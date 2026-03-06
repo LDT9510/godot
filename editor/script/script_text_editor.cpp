@@ -3010,7 +3010,7 @@ void ScriptTextEditor::_enable_code_editor() {
 
 ScriptTextEditor::ScriptTextEditor() {
 	code_editor = memnew(CodeTextEditor);
-	code_editor->set_toggle_list_control(ScriptEditor::get_singleton()->get_left_list_split());
+	code_editor->set_toggle_list_control(ScriptEditor::get_singleton()->get_right_list_split());
 	code_editor->set_anchors_and_offsets_preset(Control::PRESET_FULL_RECT);
 	code_editor->set_code_complete_func(_code_complete_scripts, this);
 	code_editor->set_v_size_flags(SIZE_EXPAND_FILL);

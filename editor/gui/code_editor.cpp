@@ -1880,7 +1880,7 @@ void CodeTextEditor::show_toggle_files_button() {
 void CodeTextEditor::update_toggle_files_button() {
 	ERR_FAIL_NULL(toggle_files_list);
 	bool forward = toggle_files_list->is_visible() == is_layout_rtl();
-	toggle_files_button->set_button_icon(get_editor_theme_icon(forward ? SNAME("Forward") : SNAME("Back")));
+	toggle_files_button->set_button_icon(get_editor_theme_icon(forward ? SNAME("Back") : SNAME("Forward")));
 	toggle_files_button->set_tooltip_text(vformat("%s (%s)", TTR("Toggle Files Panel"), ED_GET_SHORTCUT("script_editor/toggle_files_panel")->get_as_text()));
 }
 
@@ -1918,15 +1918,6 @@ CodeTextEditor::CodeTextEditor() {
 
 	error_line = 0;
 	error_column = 0;
-
-	toggle_files_button = memnew(Button);
-	toggle_files_button->set_theme_type_variation(SceneStringName(FlatButton));
-	toggle_files_button->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
-	toggle_files_button->set_tooltip_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
-	toggle_files_button->connect(SceneStringName(pressed), callable_mp(this, &CodeTextEditor::_toggle_files_pressed));
-	toggle_files_button->set_accessibility_name(TTRC("Scripts"));
-	status_bar->add_child(toggle_files_button);
-	toggle_files_button->hide();
 
 	// Error
 	error = memnew(RichTextLabel);
@@ -2005,6 +1996,18 @@ CodeTextEditor::CodeTextEditor() {
 	indentation_txt->set_accessibility_name(TTRC("Indentation"));
 	indentation_txt->set_focus_mode(FOCUS_ACCESSIBILITY);
 	indentation_txt->set_mouse_filter(MOUSE_FILTER_STOP);
+	
+	status_bar->add_child(memnew(VSeparator));
+	
+	// Toggle files button
+	toggle_files_button = memnew(Button);
+	toggle_files_button->set_theme_type_variation(SceneStringName(FlatButton));
+	toggle_files_button->set_v_size_flags(SIZE_EXPAND | SIZE_SHRINK_CENTER);
+	toggle_files_button->set_tooltip_auto_translate_mode(AUTO_TRANSLATE_MODE_DISABLED);
+	toggle_files_button->connect(SceneStringName(pressed), callable_mp(this, &CodeTextEditor::_toggle_files_pressed));
+	toggle_files_button->set_accessibility_name(TTRC("Scripts"));
+	status_bar->add_child(toggle_files_button);
+	toggle_files_button->hide();
 
 	text_editor->connect(SceneStringName(gui_input), callable_mp(this, &CodeTextEditor::_text_editor_gui_input));
 	text_editor->connect("caret_changed", callable_mp(this, &CodeTextEditor::_line_col_changed));

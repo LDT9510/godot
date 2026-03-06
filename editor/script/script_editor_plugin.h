@@ -614,7 +614,7 @@ public:
 
 	void trigger_live_script_reload(const String &p_script_path);
 
-	VSplitContainer *get_left_list_split() { return list_split; }
+	VSplitContainer *get_right_list_split() { return list_split; }
 
 	void set_live_auto_reload_running_scripts(bool p_enabled);
 
